@@ -9,8 +9,8 @@ int main(){
     std::string line;
     Items Items;
     while(std::getline(file, line)){
-        Items.addInventory(line,Items.inventory);
+        Items.addInventory(line);
     }
-    Items.printInventory(Items.inventory);
+    Items.printInventory();
     return 0;
 }
