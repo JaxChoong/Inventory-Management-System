@@ -2,16 +2,15 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "Items.h"
 
 int main(){
     std::ifstream file("stock.csv");
     std::string line;
-    std::vector<std::string> inventory;
+    Items Items;
     while(std::getline(file, line)){
-        inventory.push_back(line);
+        Items.addInventory(line,Items.inventory);
     }
-    for(auto item : inventory){
-        std::cout << item << std::endl;
-    }
+    Items.printInventory(Items.inventory);
     return 0;
 }
