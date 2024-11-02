@@ -5,24 +5,35 @@
 #include <sstream>
 #include "Items.h"
 
-int main(){
+int main() {
     std::ifstream file("stock.csv");
     std::string line;
-    Items Items;
+    Items items;
 
     // Read the first line as the header
     if (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string column;
         while (std::getline(ss, column, ',')) {
-            Items.addHeader(column);
+            items.addHeader(column);
         }
-        Items.addInventory(line);
     }
 
-    while(std::getline(file, line)){
-        Items.addInventory(line);
+    // Read subsequent lines as inventory data
+    while (std::getline(file, line)) {
+        std::istringstream ss(line);
+        std::string column;
+        std::vector<std::string> data;
+        while (std::getline(ss, column, ',')) {
+            data.push_back(column);
+        }
+        if (data.size() >= 4) {
+            Item item(data[0], data[1], data[2], data[3]);
+            items.addInventory(item);
+        }
     }
-    Items.printInventory();
+
+    items.printHeader();
+    items.printInventory();
     return 0;
 }
